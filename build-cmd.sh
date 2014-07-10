@@ -65,7 +65,21 @@ pushd "$PNG_SOURCE_DIR"
             mkdir -p "$stage/include/libpng16"
             cp -a {png.h,pngconf.h,pnglibconf.h} "$stage/include/libpng16"
         ;;
-
+        "windows64")
+            load_vsvars
+            
+            build_sln "projects/vstudio/vstudio.sln" "Release Library|x64" "pnglibconf"
+            build_sln "projects/vstudio/vstudio.sln" "Debug Library|x64" "libpng"
+            build_sln "projects/vstudio/vstudio.sln" "Release Library|x64" "libpng"
+            mkdir -p "$stage/lib/debug"
+            mkdir -p "$stage/lib/release"
+            cp -a projects/vstudio/x64/Release\ Library/libpng16.lib "$stage/lib/release/libpng16.lib"
+            cp -a projects/vstudio/x64/Release\ Library/libpng16.?db "$stage/lib/release/"
+            cp -a projects/vstudio/x64/Debug\ Library/libpng16.lib "$stage/lib/debug/libpng16.lib"
+            cp -a projects/vstudio/x64/Debug\ Library/libpng16.?db "$stage/lib/debug/"
+            mkdir -p "$stage/include/libpng16"
+            cp -a {png.h,pngconf.h,pnglibconf.h} "$stage/include/libpng16"
+        ;;
         "darwin")
             # Select SDK with full path.  This shouldn't have much effect on this
             # build but adding to establish a consistent pattern.
