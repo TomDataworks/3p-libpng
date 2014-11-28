@@ -266,6 +266,96 @@ pushd "$PNG_SOURCE_DIR"
             # clean the build artifacts
             make distclean
         ;;
+
+        "linux64")
+            # Linux build environment at Linden comes pre-polluted with stuff that can
+            # seriously damage 3rd-party builds.  Environmental garbage you can expect
+            # includes:
+            #
+            #    DISTCC_POTENTIAL_HOSTS     arch           root        CXXFLAGS
+            #    DISTCC_LOCATION            top            branch      CC
+            #    DISTCC_HOSTS               build_name     suffix      CXX
+            #    LSDISTCC_ARGS              repo           prefix      CFLAGS
+            #    cxx_version                AUTOBUILD      SIGN        CPPFLAGS
+            #
+            # So, clear out bits that shouldn't affect our configure-directed build
+            # but which do nonetheless.
+            #
+            # unset DISTCC_HOSTS CC CXX CFLAGS CPPFLAGS CXXFLAGS
+
+            # Prefer gcc-4.8 if available.
+            if [[ -x /usr/bin/gcc-4.8 && -x /usr/bin/g++-4.8 ]]; then
+                export CC=/usr/bin/gcc-4.8
+                export CXX=/usr/bin/g++-4.8
+            fi
+
+            # Default target to 64-bit
+            opts="${TARGET_OPTS:--m64}"
+
+            # Handle any deliberate platform targeting
+            if [ -z "$TARGET_CPPFLAGS" ]; then
+                # Remove sysroot contamination from build environment
+                unset CPPFLAGS
+            else
+                # Incorporate special pre-processing flags
+                export CPPFLAGS="$TARGET_CPPFLAGS"
+            fi
+
+            # Force static linkage to libz by moving .sos out of the way
+            # (Libz is only packaging statics right now but keep this working.)
+            trap restore_sos EXIT
+            for solib in "${stage}"/packages/lib/{debug,release}/libz.so*; do
+                if [ -f "$solib" ]; then
+                    mv -f "$solib" "$solib".disable
+                fi
+            done
+
+            # 1.16 INSTALL claims ZLIBINC and ZLIBLIB env vars are active but this is not so.
+            # If you fail to pick up the correct version of zlib (from packages), the build
+            # will find the system's version and generate the wrong PNG_ZLIB_VERNUM definition
+            # in the build.  Mostly you won't notice until certain things try to run.  So
+            # check the generated pnglibconf.h when doing development and confirm it's correct.
+            #
+            # The two-pass session below has the effect of:
+            # * Producing only static libraries.
+            # * Builds all bin/* targets with static libraries.
+            # * Stages the release version of bin/* and include/* over debug.
+
+            # build the debug version and link against the debug zlib
+            CFLAGS="$opts -Og -g" \
+                CXXFLAGS="$opts -Og -g" \
+                CPPFLAGS="$CPPFLAGS -I$stage/packages/include/zlib" \
+                LDFLAGS="-L$stage/packages/lib/debug" \
+                ./configure --prefix="$stage" --libdir="$stage/lib/debug" --includedir="$stage/include" --enable-shared=no --with-pic
+            make
+            make install
+
+            # conditionally run unit tests
+            if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
+                make test
+            fi
+
+            # clean the build artifacts
+            make distclean
+
+            # build the release version and link against the release zlib
+            CFLAGS="$opts -O3" \
+                CXXFLAGS="$opts -O3" \
+                CPPFLAGS="$CPPFLAGS -I$stage/packages/include/zlib" \
+                LDFLAGS="-L$stage/packages/lib/release" \
+                ./configure --prefix="$stage" --libdir="$stage/lib/release" --includedir="$stage/include" --enable-shared=no --with-pic
+            make
+            make install
+
+            # conditionally run unit tests
+            if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
+                make test
+            fi
+
+            # clean the build artifacts
+            make distclean
+        ;;
+
     esac
     mkdir -p "$stage/LICENSES"
     cp -a LICENSE "$stage/LICENSES/libpng.txt"
