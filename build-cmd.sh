@@ -326,9 +326,9 @@ pushd "$PNG_SOURCE_DIR"
                 CXXFLAGS="$opts -Og -g" \
                 CPPFLAGS="$CPPFLAGS -I$stage/packages/include/zlib" \
                 LDFLAGS="-L$stage/packages/lib/debug" \
-                ./configure --prefix="$stage" --libdir="$stage/lib/debug" --includedir="$stage/include" --enable-shared=no --with-pic
+                ./configure --prefix="\${AUTOBUILD_PACKAGES_DIR}" --libdir="\${prefix}/lib/debug" --includedir="\${prefix}/include" --enable-shared=no --with-pic
             make
-            make install
+            make install DESTDIR="$stage"
 
             # conditionally run unit tests
             if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
@@ -343,9 +343,9 @@ pushd "$PNG_SOURCE_DIR"
                 CXXFLAGS="$opts -O3" \
                 CPPFLAGS="$CPPFLAGS -I$stage/packages/include/zlib" \
                 LDFLAGS="-L$stage/packages/lib/release" \
-                ./configure --prefix="$stage" --libdir="$stage/lib/release" --includedir="$stage/include" --enable-shared=no --with-pic
+                ./configure --prefix="\${AUTOBUILD_PACKAGES_DIR}" --libdir="\${prefix}/lib/release" --includedir="\${prefix}/include" --enable-shared=no --with-pic
             make
-            make install
+            make install DESTDIR="$stage"
 
             # conditionally run unit tests
             if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
