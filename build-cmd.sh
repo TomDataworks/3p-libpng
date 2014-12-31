@@ -26,6 +26,8 @@ set -x
 stage="$(pwd)/stage"
 [ -f "$stage"/packages/include/zlib/zlib.h ] || fail "You haven't installed packages yet."
 
+echo "${PNG_VERSION}" > "${stage}/VERSION.txt"
+
 # Restore all .sos
 restore_sos ()
 {
