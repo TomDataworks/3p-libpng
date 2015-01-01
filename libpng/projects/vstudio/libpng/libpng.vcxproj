@@ -166,7 +166,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointExceptions>false</FloatingPointExceptions>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <CompileAs>CompileAsC</CompileAs>
@@ -199,7 +199,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointExceptions>false</FloatingPointExceptions>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <CompileAs>CompileAsC</CompileAs>
@@ -233,7 +233,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointExceptions>false</FloatingPointExceptions>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <CompileAs>CompileAsC</CompileAs>
@@ -262,7 +262,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointExceptions>false</FloatingPointExceptions>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <CompileAs>CompileAsC</CompileAs>
@@ -288,7 +288,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointExceptions>false</FloatingPointExceptions>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <CompileAs>CompileAsC</CompileAs>
@@ -321,7 +321,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointExceptions>false</FloatingPointExceptions>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <CompileAs>CompileAsC</CompileAs>
@@ -355,7 +355,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointExceptions>false</FloatingPointExceptions>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <CompileAs>CompileAsC</CompileAs>
@@ -388,7 +388,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointExceptions>false</FloatingPointExceptions>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <PrecompiledHeaderFile>pngpriv.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <CompileAs>CompileAsC</CompileAs>
