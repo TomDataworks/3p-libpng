@@ -196,14 +196,16 @@ pushd "$PNG_SOURCE_DIR"
             #
             # unset DISTCC_HOSTS CC CXX CFLAGS CPPFLAGS CXXFLAGS
 
-            # Prefer gcc-4.6 if available.
-            if [[ -x /usr/bin/gcc-4.6 && -x /usr/bin/g++-4.6 ]]; then
-                export CC=/usr/bin/gcc-4.6
-                export CXX=/usr/bin/g++-4.6
+            # Prefer gcc-4.8 if available.
+            if [[ -x /usr/bin/gcc-4.8 && -x /usr/bin/g++-4.8 ]]; then
+                export CC=/usr/bin/gcc-4.8
+                export CXX=/usr/bin/g++-4.8
             fi
 
             # Default target to 32-bit
             opts="${TARGET_OPTS:--m32}"
+            JOBS=`cat /proc/cpuinfo | grep processor | wc -l`
+            HARDENED="-fstack-protector-strong -D_FORTIFY_SOURCE=2"
 
             # Handle any deliberate platform targeting
             if [ -z "$TARGET_CPPFLAGS" ]; then
@@ -235,12 +237,12 @@ pushd "$PNG_SOURCE_DIR"
             # * Stages the release version of bin/* and include/* over debug.
 
             # build the debug version and link against the debug zlib
-            CFLAGS="$opts -O0 -g" \
-                CXXFLAGS="$opts -O0 -g" \
+            CFLAGS="$opts -Og -g" \
+                CXXFLAGS="$opts -Og -g" \
                 CPPFLAGS="$CPPFLAGS -I$stage/packages/include/zlib" \
                 LDFLAGS="-L$stage/packages/lib/debug" \
                 ./configure --prefix="$stage" --libdir="$stage/lib/debug" --includedir="$stage/include" --enable-shared=no --with-pic
-            make
+            make -j$JOBS
             make install
 
             # conditionally run unit tests
@@ -252,12 +254,12 @@ pushd "$PNG_SOURCE_DIR"
             make distclean
 
             # build the release version and link against the release zlib
-            CFLAGS="$opts -O3" \
-                CXXFLAGS="$opts -O3" \
+            CFLAGS="$opts -O3 -g $HARDENED" \
+                CXXFLAGS="$opts -O3 -g $HARDENED" \
                 CPPFLAGS="$CPPFLAGS -I$stage/packages/include/zlib" \
                 LDFLAGS="-L$stage/packages/lib/release" \
                 ./configure --prefix="$stage" --libdir="$stage/lib/release" --includedir="$stage/include" --enable-shared=no --with-pic
-            make
+            make -j$JOBS
             make install
 
             # conditionally run unit tests
@@ -293,6 +295,8 @@ pushd "$PNG_SOURCE_DIR"
 
             # Default target to 64-bit
             opts="${TARGET_OPTS:--m64}"
+            JOBS=`cat /proc/cpuinfo | grep processor | wc -l`
+            HARDENED="-fstack-protector-strong -D_FORTIFY_SOURCE=2"
 
             # Handle any deliberate platform targeting
             if [ -z "$TARGET_CPPFLAGS" ]; then
@@ -329,7 +333,7 @@ pushd "$PNG_SOURCE_DIR"
                 CPPFLAGS="$CPPFLAGS -I$stage/packages/include/zlib" \
                 LDFLAGS="-L$stage/packages/lib/debug" \
                 ./configure --prefix="\${AUTOBUILD_PACKAGES_DIR}" --libdir="\${prefix}/lib/debug" --includedir="\${prefix}/include" --enable-shared=no --with-pic
-            make
+            make -j$JOBS
             make install DESTDIR="$stage"
 
             # conditionally run unit tests
@@ -341,12 +345,12 @@ pushd "$PNG_SOURCE_DIR"
             make distclean
 
             # build the release version and link against the release zlib
-            CFLAGS="$opts -O3" \
-                CXXFLAGS="$opts -O3" \
+            CFLAGS="$opts -O3 -g $HARDENED" \
+                CXXFLAGS="$opts -O3 -g $HARDENED" \
                 CPPFLAGS="$CPPFLAGS -I$stage/packages/include/zlib" \
                 LDFLAGS="-L$stage/packages/lib/release" \
                 ./configure --prefix="\${AUTOBUILD_PACKAGES_DIR}" --libdir="\${prefix}/lib/release" --includedir="\${prefix}/include" --enable-shared=no --with-pic
-            make
+            make -j$JOBS
             make install DESTDIR="$stage"
 
             # conditionally run unit tests
