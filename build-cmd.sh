@@ -55,9 +55,9 @@ pushd "$PNG_SOURCE_DIR"
         "windows")
             load_vsvars
             
-            build_sln "projects/vstudio/vstudio.sln" "Release Library|Win32" "pnglibconf"
-            build_sln "projects/vstudio/vstudio.sln" "Debug Library|Win32"
-            build_sln "projects/vstudio/vstudio.sln" "Release Library|Win32"
+            build_sln "projects/vstudio/vstudio.sln" "Release Library" "Win32" "pnglibconf"
+            build_sln "projects/vstudio/vstudio.sln" "Debug Library" "Win32"
+            build_sln "projects/vstudio/vstudio.sln" "Release Library" "Win32"
             mkdir -p "$stage/lib/debug"
             mkdir -p "$stage/lib/release"
             cp -a projects/vstudio/Release\ Library/libpng16.lib "$stage/lib/release/libpng16.lib"
@@ -70,9 +70,9 @@ pushd "$PNG_SOURCE_DIR"
         "windows64")
             load_vsvars
             
-            build_sln "projects/vstudio/vstudio.sln" "Release Library|x64" "pnglibconf"
-            build_sln "projects/vstudio/vstudio.sln" "Debug Library|x64"
-            build_sln "projects/vstudio/vstudio.sln" "Release Library|x64"
+            build_sln "projects/vstudio/vstudio.sln" "Release Library" "x64" "pnglibconf"
+            build_sln "projects/vstudio/vstudio.sln" "Debug Library" "x64"
+            build_sln "projects/vstudio/vstudio.sln" "Release Library" "x64"
             mkdir -p "$stage/lib/debug"
             mkdir -p "$stage/lib/release"
             cp -a projects/vstudio/x64/Release\ Library/libpng16.lib "$stage/lib/release/libpng16.lib"
