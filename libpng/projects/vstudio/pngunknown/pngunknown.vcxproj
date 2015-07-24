@@ -230,8 +230,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libpng16.lib;zlib.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libpng16.lib;zlibd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);..\..\..\..\stage\packages\lib\debug</AdditionalLibraryDirectories>
     </Link>
     <CustomBuildStep>
       <Message>Executing PNG validation program</Message>
@@ -369,7 +369,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>libpng16.lib;zlib.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);..\..\..\..\stage\packages\lib\release</AdditionalLibraryDirectories>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <CustomBuildStep>
