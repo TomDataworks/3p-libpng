@@ -93,7 +93,7 @@
     <key>package_description</key>
     <map>
       <key>copyright</key>
-      <string>Copyright (c) 2004, 2006-2016 Glenn Randers-Pehrson</string>
+      <string>Copyright (c) 2000-2002, 2004, 2006-2016 Glenn Randers-Pehrson</string>
       <key>description</key>
       <string>PNG Reference library</string>
       <key>license</key>
