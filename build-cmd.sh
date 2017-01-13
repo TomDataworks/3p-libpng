@@ -95,7 +95,7 @@ pushd "$PNG_SOURCE_DIR"
             # old llqtwebkit repo which builds on 10.5 systems.
             # At 10.6, libpng will start using __bzero() which doesn't
             # exist there.
-            opts="${TARGET_OPTS:--arch i386 -arch x86_64 -iwithsysroot $sdk -mmacosx-version-min=10.8}"
+            opts="${TARGET_OPTS:--arch x86_64 -iwithsysroot $sdk -mmacosx-version-min=10.8}"
 
             # Install name for dylibs (if we wanted to build them).
             # The outline of a dylib build is here disabled by '#dylib#' 

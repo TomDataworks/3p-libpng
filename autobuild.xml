@@ -6,7 +6,7 @@
       <key>zlib</key>
       <map>
         <key>copyright</key>
-        <string>Copyright (C) 1995-2013 Jean-loup Gailly and Mark Adler</string>
+        <string>Copyright (C) 1995-2017 Jean-loup Gailly and Mark Adler</string>
         <key>description</key>
         <string>Zlib Data Compression Library</string>
         <key>license</key>
@@ -22,11 +22,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>635ee875ba478b17b6c64d9698cdf0dd</string>
+              <string>cd9f256d1f5ba7926c060a2ce04f559f</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/alchemyviewer/publiclibs-darwin/downloads/zlib-1.2.8-darwin-201511221937.tar.bz2</string>
+              <string>http://depot.alchemyviewer.org/pub/darwin/lib/zlib-1.2.10-darwin-201701092158.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -87,7 +87,7 @@
           </map>
         </map>
         <key>version</key>
-        <string>1.2.8</string>
+        <string>1.2.10</string>
       </map>
     </map>
     <key>package_description</key>
