@@ -7,7 +7,7 @@ set -x
 # make errors fatal
 set -e
 
-PNG_VERSION="1.6.24"
+PNG_VERSION="1.6.28"
 PNG_SOURCE_DIR="libpng"
 
 if [ -z "$AUTOBUILD" ] ; then 
@@ -95,7 +95,7 @@ pushd "$PNG_SOURCE_DIR"
             # old llqtwebkit repo which builds on 10.5 systems.
             # At 10.6, libpng will start using __bzero() which doesn't
             # exist there.
-            opts="${TARGET_OPTS:--arch i386 -arch x86_64 -iwithsysroot $sdk -mmacosx-version-min=10.8}"
+            opts="${TARGET_OPTS:--arch x86_64 -iwithsysroot $sdk -mmacosx-version-min=10.8}"
 
             # Install name for dylibs (if we wanted to build them).
             # The outline of a dylib build is here disabled by '#dylib#' 
@@ -196,16 +196,10 @@ pushd "$PNG_SOURCE_DIR"
             #
             # unset DISTCC_HOSTS CC CXX CFLAGS CPPFLAGS CXXFLAGS
 
-            # Prefer gcc-4.8 if available.
-            if [[ -x /usr/bin/gcc-4.8 && -x /usr/bin/g++-4.8 ]]; then
-                export CC=/usr/bin/gcc-4.8
-                export CXX=/usr/bin/g++-4.8
-            fi
-
             # Default target to 32-bit
             opts="${TARGET_OPTS:--m32}"
             JOBS=`cat /proc/cpuinfo | grep processor | wc -l`
-            HARDENED="-fstack-protector -D_FORTIFY_SOURCE=2"
+            HARDENED="-fstack-protector-strong -D_FORTIFY_SOURCE=2"
 
             # Handle any deliberate platform targeting
             if [ -z "$TARGET_CPPFLAGS" ]; then
@@ -287,16 +281,10 @@ pushd "$PNG_SOURCE_DIR"
             #
             # unset DISTCC_HOSTS CC CXX CFLAGS CPPFLAGS CXXFLAGS
 
-            # Prefer gcc-4.8 if available.
-            if [[ -x /usr/bin/gcc-4.8 && -x /usr/bin/g++-4.8 ]]; then
-                export CC=/usr/bin/gcc-4.8
-                export CXX=/usr/bin/g++-4.8
-            fi
-
             # Default target to 64-bit
             opts="${TARGET_OPTS:--m64}"
             JOBS=`cat /proc/cpuinfo | grep processor | wc -l`
-            HARDENED="-fstack-protector -D_FORTIFY_SOURCE=2"
+            HARDENED="-fstack-protector-strong -D_FORTIFY_SOURCE=2"
 
             # Handle any deliberate platform targeting
             if [ -z "$TARGET_CPPFLAGS" ]; then
